@@ -14,9 +14,8 @@ pygame.display.set_caption("Red box game")
 clock=pygame.time.Clock()
 blocksize=20
 direction=(0,0)
-snake_x=100
-snake_y=100
-length=1
+red_box_x=100
+red_box_y=100
 barrier_xs=[]
 barrier_ys=[]
 score=0
@@ -70,11 +69,10 @@ def checkCollision(x1,y1,x2,y2):
 
 def restart():
     """Restarts the game"""
-    global direction,snake_x,snake_y,food_x,food_y,length,barrier_xs,barrier_ys,speed,score
+    global direction,red_box_x,red_box_y,food_x,food_y,barrier_xs,barrier_ys,speed,score
     direction=(0,0)
-    snake_x=100
-    snake_y=100
-    length=1
+    red_box_x=100
+    red_box_y=100
     barrier_xs=[]
     barrier_ys=[]
     score=0
@@ -98,7 +96,7 @@ def gameOver():
 
 def main():
     """Main function"""
-    global direction,snake_x,snake_y,food_x,food_y,length,barrier_xs,barrier_ys,speed,score
+    global direction,red_box_x,red_box_y,food_x,food_y,barrier_xs,barrier_ys,speed,score
     while True:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -115,12 +113,12 @@ def main():
                     direction=(0,1)
         screen.fill(BLACK)
         drawGrid()
-        snake_x+=direction[0]*blocksize
-        snake_y+=direction[1]*blocksize
-        drawRedBox(snake_x,snake_y,blocksize)
+        red_box_x+=direction[0]*blocksize
+        red_box_y+=direction[1]*blocksize
+        drawRedBox(red_box_x,red_box_y,blocksize)
         drawFood(food_x,food_y,blocksize)
         
-        if checkCollision(snake_x,snake_y,food_x,food_y):
+        if checkCollision(red_box_x,red_box_y,food_x,food_y):
             
             food_x=generate_random_coordinates(width,blocksize)
             food_y=generate_random_coordinates(height,blocksize)
@@ -135,20 +133,18 @@ def main():
                     food_x=generate_random_coordinates(width,blocksize)
                     food_y=generate_random_coordinates(height,blocksize)
                     break
-            speed+=1        
-            length+=1
+            speed+=1
             score+=1
-            print(length)
             for i in range(difficulty):
                 generateBarrier(barrier_xs,barrier_ys)
 
         for i in range(len(barrier_xs)):
             drawBarrier(barrier_xs[i],barrier_ys[i],20)
-            if checkCollision(snake_x,snake_y,barrier_xs[i],barrier_ys[i]):
+            if checkCollision(red_box_x,red_box_y,barrier_xs[i],barrier_ys[i]):
                 direction=(0,0)
                 gameOver()
         
-        if snake_x<10 or snake_x>width-10 or snake_y<10 or snake_y>height-10:
+        if red_box_x<10 or red_box_x>width-10 or red_box_y<10 or red_box_y>height-10:
             direction=(0,0)
             speed=5
 
