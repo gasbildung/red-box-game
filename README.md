@@ -1,3 +1,4 @@
+![](https://github.com/gasbildung/red-box-game/blob/main/red%20box%20game.gif)
 ## Summary
 
 This game is a simple red box game. 
